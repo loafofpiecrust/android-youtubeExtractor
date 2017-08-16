@@ -548,6 +548,7 @@ public abstract class YouTubeExtractor extends AsyncTask<String, Void, SparseArr
     }
 
     private void parseDashManifest(String dashMpdUrl, SparseArray<YtFile> ytFiles) throws IOException {
+        this.dashMpdUrl = dashMpdUrl
         Pattern patBaseUrl = Pattern.compile("<BaseURL yt:contentLength=\"[0-9]+?\">(.+?)</BaseURL>");
         String dashManifest;
         BufferedReader reader = null;
