@@ -43,6 +43,7 @@ public abstract class YouTubeExtractor extends AsyncTask<String, Void, SparseArr
     private Context context;
     private String videoID;
     private VideoMeta videoMeta;
+    private String dashMpdUrl; // CHANGE: Pass the dash manifest url to the callback (for ExoPlayer streaming!)
     private boolean includeWebM = true;
     private boolean useHttp = false;
     private boolean parseDashManifest = false;
@@ -150,7 +151,7 @@ public abstract class YouTubeExtractor extends AsyncTask<String, Void, SparseArr
 
     @Override
     protected void onPostExecute(SparseArray<YtFile> ytFiles) {
-        onExtractionComplete(ytFiles, videoMeta);
+        onExtractionComplete(ytFiles, videoMeta, dashMpdUrl);
     }
 
 
@@ -167,7 +168,7 @@ public abstract class YouTubeExtractor extends AsyncTask<String, Void, SparseArr
         this.execute(youtubeLink);
     }
 
-    protected abstract void onExtractionComplete(SparseArray<YtFile> ytFiles, VideoMeta videoMeta);
+    protected abstract void onExtractionComplete(SparseArray<YtFile> ytFiles, VideoMeta videoMeta, String dashManifestUrl);
 
     @Override
     protected SparseArray<YtFile> doInBackground(String... params) {
@@ -205,7 +206,7 @@ public abstract class YouTubeExtractor extends AsyncTask<String, Void, SparseArr
         ytInfoUrl += "www.youtube.com/get_video_info?video_id=" + videoID + "&eurl="
                 + URLEncoder.encode("https://youtube.googleapis.com/v/" + videoID, "UTF-8");
 
-        String dashMpdUrl = null;
+//        String dashMpdUrl = null; // Replaced with member variable
         String streamMap = null;
         BufferedReader reader = null;
         URL getUrl = new URL(ytInfoUrl);
