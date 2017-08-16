@@ -11,7 +11,7 @@ public abstract class YouTubeUriExtractor extends YouTubeExtractor {
     }
 
     @Override
-    protected void onExtractionComplete(SparseArray<YtFile> ytFiles, VideoMeta videoMeta) {
+    protected void onExtractionComplete(SparseArray<YtFile> ytFiles, VideoMeta videoMeta, String dashManifestUrl) {
         onUrisAvailable(videoMeta.getVideoId(), videoMeta.getTitle(), ytFiles);
     }
 
